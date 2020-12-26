@@ -1,0 +1,97 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isErrorPage="true" %>
+<html>
+<head>
+    <title>错误</title>
+</head>
+<body>
+    ${error} <br>
+    <a href="signIn.jsp">注册</a>
+    <a href="login.jsp">登录</a>
+</body>
+</html>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<h1>假装是网站的首页</h1>
+<c:if test="${not empty sessionScope.username}">
+    欢迎你, ${sessionScope.username}.
+    <a href="logout">注销</a>
+</c:if>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<a href="signIn.jsp">注册</a>
+<a href="login.jsp">登录</a>
+</body>
+</html>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>登录</title>
+</head>
+<body>
+<h1>登录</h1>
+<form action="login" method="post">
+    用户名<input id="username" name="username"/> <br>
+    密码<input id="password" name="password" type="password"/> <br>
+    <input id="remember" name="remember" type="checkbox" value="true"/>记住用户名和密码 <br>
+    <input type="submit" value="登录"/> <br>
+</form>
+</body>
+<script>
+    function getCookie(name) {
+        //传递进来一个参数，这个参数是cookie的名字
+        //得到的结果是这个cookie的值
+        const strCookie = document.cookie;
+        const arrCookie = strCookie.split("; ");
+        for (let i = 0; i < arrCookie.length; i++) {
+            let arr = arrCookie[i].split("=");
+            if (arr[0] === name) {
+                return arr[1];
+            }
+        }
+        return "";
+    }
+
+    if (document.cookie.indexOf("username") === -1 || document.cookie.indexOf("token") === -1) {
+        //如果浏览器中没有叫做username和toke的cookie，就将两个文本框的内容清空
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+    } else {
+        document.getElementById("remember").checked = true; //让复选框打上对号
+        document.getElementById("username").value = getCookie("username");
+        document.getElementById("password").value = "********";
+    }
+</script>
+</html>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>注册</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <form action="signIn" method="post">
+        用户名<input name="username" /> <br>
+        密码<input name="password" type="password" /> <br>
+        <input type="submit" value="注册"/> <br>
+    </form>
+</body>
+</html>
+
+
